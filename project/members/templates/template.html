@@ -1,13 +1,211 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
     Epilogue | Testing
+    <link rel="stylesheet" href="{% static '../static/myfirst.css' %}">
 {% endblock %}
 
 {% block content %}
+    {% include "menu.html" with me="EPILOGUE" sponsor="HUST" %}
+    <h1>Welcome{# Everyone#}</h1>
+    {% comment "this was the original welcome message" %}
+        <h1>Welcome ladies and gentlemen</h1>
+    {% endcomment %}
+    {% with lastname="Hoang Van" %}
+    <h1>Hello {{ firstname }} {{ lastname }}, how are you?</h1>
+    {% endwith %}
     {% for x in fruits %}
-        <h1>{{ x }}</h1>
+        <p>{{ x }}</p>
     {% endfor %}
 
+    {% if 'Banana' in fruits %}
+        <p>Hello, Banana</p>
+    {% else %}
+        <p>Goodbye</p>
+    {% endif %}
+
+    {% if 'Orange' not in fruits %}
+        <p>Hello, Orange</p>
+    {% else %}
+        <p>Goodbye</p>
+    {% endif %}
+
+    <ul>
+        {% for x in fruits %}
+            <li>{{ forloop.counter }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for x in fruits %}
+            <li>{{ forloop.counter0 }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for x in fruits %}
+            <li
+                {% if forloop.first %}
+                    style='background-color: lightblue;'
+                {% endif %}
+            >{{ x }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for x in fruits %}
+            <li
+                {% if forloop.last %}
+                    style='background-color: lightblue;'
+                {% endif %}
+            >{{ x }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for x in fruits %}
+            <li>{{ forloop.revcounter }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for x in fruits %}
+            <li>{{ forloop.revcounter0 }}</li>
+        {% endfor %}
+    </ul>
+
     <p>In views.py you can see what the fruits variable look like.</p>
+
+    <table border="1">
+        <tr>
+            <th>
+                <p>ID</p>
+            </th>
+            <th>
+                <p>Firstname</p>
+            </th>
+            <th>
+                <p>Lastname</p>
+            </th>
+        </tr>
+        {% for x in mymembers %}
+            <tr>
+                <th>
+                    {{ x.id }}
+                </th>
+                <th>
+                    {{ x.firstname }}
+                </th>
+                <th>
+                    {{ x.lastname }}
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table border="1">
+        <tr>
+            <th>
+                <p>ID</p>
+            </th>
+            <th>
+                <p>Firstname</p>
+            </th>
+            <th>
+                <p>Lastname</p>
+            </th>
+        </tr>
+        {% for x in myquery %}
+            <tr>
+                <th>
+                    {{ x.id }}
+                </th>
+                <th>
+                    {{ x.firstname }}
+                </th>
+                <th>
+                    {{ x.lastname }}
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <ul>
+        {% for x in mymembers %}
+            <li>{{ x.firstname }}</li>
+        {% endfor %}
+    </ul>
+
+    {% for x in mymembers %}
+        <h1>{{ x.id }}</h1>
+        <p>
+            {{ x.firstname }}
+            {{ x.lastname }}
+        </p>
+    {% endfor %}
+
+    {% for x in mymembers reversed %}
+        <h1>{{ x.id }}</h1>
+        <p>
+            {{ x.firstname }}
+            {{ x.lastname }}
+        </p>
+    {% endfor %}
+
+    <ul>
+        {% for x in emptytestobject %}
+            <li>{{ x.firstname }}</li>
+        {% empty %}
+            <li>No members</li>
+        {% endfor %}
+    </ul>
+
+    {% if greeting == 1 %}
+        <h3>Hello</h3>
+    {% elif greeting == 2 %}
+        <h3>Welcome</h3>
+    {% else %}
+        <h3>Goodbye</h3>
+    {% endif %}
+
+    {% if greeting %}
+        <h3>Hello</h3>
+    {% endif %}
+
+    {% if greeting == 1 and day == "Friday" %}
+        <h3>Hello Weekend!</h3>
+    {% endif %}
+
+    {% if greeting == 1 or greeting == 5 %}
+        <h1>Hello</h1>
+    {% endif %}
+
+    {% if x is y %}
+        <h1>YES</h1>
+    {% else %}
+        <h1>NO</h1>
+    {% endif %}
+
+    {% if x == y %}
+        <h1>YES</h1>
+    {% else %}
+        <h1>NO</h1>
+    {% endif %}
+
+    {% with var1=x var2=x %}
+        {% if var1 is var2 %}
+            <h1>YES</h1>
+        {% else %}
+            <h1>NO</h1>
+        {% endif %}
+    {% endwith %}
+
+    {% if x is not y %}
+        <h1>YES</h1>
+    {% else %}
+        <h1>NO</h1>
+    {% endif %}
+
+    {% include 'footer.html' %}
 {% endblock %}
